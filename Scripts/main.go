@@ -12,8 +12,23 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 	//ResponseWriter is for assembling an HTTP response and sending to the user
 	//Request is a struct which holds info about the current request.
-
+	if r.URL.Path != "/" {
+		http.NotFound(w, r) //if the URL is a path that doesn't exist, issue the 404 not found error message and return.
+		return
+	}
 	w.Write([]byte("Hello from SnippetBox"))
+
+}
+
+func showSnippet(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Displaying a snippet..."))
+
+}
+
+func createSnippet(w http.ResponseWriter, r *http.Request) {
+
+	w.Write([]byte("Creating a new snippet..."))
 
 }
 
@@ -23,6 +38,8 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", home)
+	mux.HandleFunc("/snippet", showSnippet)
+	mux.HandleFunc("/snippet/create", createSnippet)
 
 	//Use http.ListenAndServe() to start a new web server
 	//Two parameters: TCP network address to listen on, and the servemux
