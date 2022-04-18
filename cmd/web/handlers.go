@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -48,7 +49,7 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 	}
 	ts, err:= template.ParseFiles(files...)*/
 
-	//fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
+	fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
 }
 func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
