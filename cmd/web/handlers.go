@@ -17,7 +17,6 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//use template.ParseFiles() to read the template into a template set. If any error, log the error and use http.Error
-
 	files := []string{
 		"./ui/html/home.page.tmpl",
 		"./ui/html/base.layout.tmpl",
