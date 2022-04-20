@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"strconv"
 
@@ -17,7 +18,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	//use template.ParseFiles() to read the template into a template set. If any error, log the error and use http.Error
 
-	/*files := []string{
+	files := []string{
 		"./ui/html/home.page.tmpl",
 		"./ui/html/base.layout.tmpl",
 		"./ui/html/footer.partial.tmpl",
@@ -35,7 +36,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	err = ts.Execute(w, nil)
 	if err != nil {
 		app.serverError(w, err)
-	}*/
+	}
 
 	snippetsList, err := app.snippets.Latest()
 	if err != nil {
@@ -64,9 +65,24 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-	// Write the snippet data as a plain-text HTTP response body.
-	fmt.Fprintf(w, "%v", s)
+	files := []string{
+		"./ui/html/show.page.tmpl",
+		"./ui/html/base.layout.tmpl",
+		"./ui/html/footer.partial.tmpl",
+	}
 
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	data := &templateData{
+		Snippet: s,
+	}
+	err = ts.Execute(w, data)
+	if err != nil {
+		app.serverError(w, err)
+	}
 }
 func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
