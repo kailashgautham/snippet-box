@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -18,7 +17,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	//use template.ParseFiles() to read the template into a template set. If any error, log the error and use http.Error
 
-	files := []string{
+	/*files := []string{
 		"./ui/html/home.page.tmpl",
 		"./ui/html/base.layout.tmpl",
 		"./ui/html/footer.partial.tmpl",
@@ -36,9 +35,20 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	err = ts.Execute(w, nil)
 	if err != nil {
 		app.serverError(w, err)
+	}*/
+
+	snippetsList, err := app.snippets.Latest()
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, snippet := range snippetsList {
+		fmt.Fprintf(w, "%v\n", snippet)
 	}
 
 }
+
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
