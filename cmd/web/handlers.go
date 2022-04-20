@@ -32,21 +32,22 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Execute() on template to write template as the response body. Last parameter is any dynamic data that we want to pass in
-
-	err = ts.Execute(w, nil)
-	if err != nil {
-		app.serverError(w, err)
-	}
-
-	snippetsList, err := app.snippets.Latest()
+	s, err := app.snippets.Latest()
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	for _, snippet := range snippetsList {
-		fmt.Fprintf(w, "%v\n", snippet)
+	data := &templateData{Snippets: s}
+
+	err = ts.Execute(w, data)
+	if err != nil {
+		app.serverError(w, err)
 	}
+
+	/*for _, snippet := range snippetsList {
+		fmt.Fprintf(w, "%v\n", snippet)
+	}*/
 
 }
 
