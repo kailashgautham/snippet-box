@@ -1,4 +1,4 @@
 
 
 
-curl -iL -X POST http://localhost:9999/snippet/create
+curl -i "http://localhost:9999/snippet?id=1"
