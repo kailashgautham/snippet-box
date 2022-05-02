@@ -1,4 +1,4 @@
 
 
 
-curl -i "http://localhost:9999/snippet?id=1"
+curl -I http://localhost:9999/
