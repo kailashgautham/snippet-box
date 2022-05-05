@@ -1,4 +1,5 @@
 
 
 
-curl -I http://localhost:9999/
+curl -X POST http://localhost:9999/snippet/1
+
