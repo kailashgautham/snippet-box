@@ -77,3 +77,23 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 		http.StatusSeeOther)
 
 }
+
+func (app *application) signupUserForm(w http.ResponseWriter, r *http.Request) {
+	app.render(w, r, "create.page.tmpl", &templateData{Form: forms.New(nil)})
+}
+
+func (app *application) signupUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Create new user...")
+}
+
+func (app *application) loginUserForm(w http.ResponseWriter, r *http.Request) {
+	app.render(w, r, "create.page.tmpl", &templateData{Form: forms.New(nil)})
+}
+
+func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Authenticate and login user...")
+}
+
+func (app *application) logoutUser(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Logout the user...")
+}
