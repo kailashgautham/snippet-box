@@ -10,6 +10,7 @@ import (
 )
 
 type templateData struct {
+	CSRFToken         string
 	AuthenticatedUser int
 	Snippet           *models.Snippet
 	Snippets          []*models.Snippet
