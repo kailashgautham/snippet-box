@@ -10,7 +10,7 @@ import (
 func (app *application) routes() http.Handler {
 
 	standardMiddleWare := alice.New(app.recoverPanic, app.logRequest, secureHeaders)
-	dynamicMiddleWare := alice.New(app.session.Enable, noSurf)
+	dynamicMiddleWare := alice.New(app.session.Enable, noSurf, app.authenticate)
 
 	mux := pat.New()
 	mux.Get("/", dynamicMiddleWare.ThenFunc(app.home))

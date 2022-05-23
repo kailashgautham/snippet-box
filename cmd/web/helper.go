@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/justinas/nosurf"
+	"kailashgautham.com/snippetbox/pkg/models"
 )
 
 func (app *application) serverError(w http.ResponseWriter, err error) {
@@ -51,6 +52,10 @@ func (app *application) addDefaultData(td *templateData, r *http.Request) *templ
 	return td
 }
 
-func (app *application) authenticatedUser(r *http.Request) int {
-	return app.session.GetInt(r, "userID")
+func (app *application) authenticatedUser(r *http.Request) *models.User {
+	user, ok := r.Context().Value(contextKeyUser).(*models.User)
+	if !ok {
+		return nil
+	}
+	return user
 }

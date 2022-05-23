@@ -11,7 +11,7 @@ import (
 
 type templateData struct {
 	CSRFToken         string
-	AuthenticatedUser int
+	AuthenticatedUser *models.User
 	Snippet           *models.Snippet
 	Snippets          []*models.Snippet
 	CurrentYear       int
